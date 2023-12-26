@@ -1,6 +1,6 @@
 import express from "express"; //Express is used as a javascript framework which is used with node
 //Node is a Javascript runtime used in  backend  for interacting with the server and databases.
-//import bodyParser from "body-parser";
+//import bodyParser from "body-parser INORDER to capture the body of the request";
 import bodyParser from "body-parser";
 
 import morgan from "morgan";//This is used to capture the log
@@ -13,12 +13,15 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const app = express();
 const port = 3000;
+
 var passwordAuthentication=false;
 const passwordValid="12345";
-app.use(bodyParser.urlencoded({ extended: true }));
 
-/*This line of code is used to show the passed value from the body in post call /form....else it will 
+
+app.use(bodyParser.urlencoded({ extended: true }));/*This line of code is used to show the passed value from the body in post call /form....else it will 
 show undefined*/
+
+
 function checkPassword(req,res,next) {
   console.log("The URL request is : "+req.url);
   console.log("The Method routed is : " +req.method);
@@ -29,18 +32,19 @@ function checkPassword(req,res,next) {
   }
   next(); //If we miss to add this next line , the request routing or any call won't happen it will just hang there
 };
-app.use(checkPassword); 
 
+app.use(checkPassword); 
 app.use(morgan("combined"));
 app.use(express.static("public"));// Used so that express can locate the external files
 
 
-
+//get request
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/public/index.html");
   
 });
 
+//post request
 app.post("/submit", (req, res) => {
  // console.log( "The body of the request is : ");
   
