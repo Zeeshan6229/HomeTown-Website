@@ -35,12 +35,12 @@ function checkPassword(req,res,next) {
 
 app.use(checkPassword); 
 app.use(morgan("combined"));
-app.use(express.static("public"));// Used so that express can locate the external files
+app.use(express.static("docs"));// Used so that express can locate the external files
 
 
 //get request
 app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/public/index.html");
+  res.sendFile(__dirname + "/docs/index.html");
   
 });
 
@@ -50,9 +50,9 @@ app.post("/submit", (req, res) => {
   
 
   if(passwordAuthentication)
-  res.sendFile(__dirname + "/public/secret.html");
+  res.sendFile(__dirname + "/docs/secret.html");
   else
-  res.sendFile(__dirname + "/public/index.html");
+  res.sendFile(__dirname + "/docs/index.html");
   
 });
 
